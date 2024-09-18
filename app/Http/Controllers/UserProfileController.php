@@ -11,20 +11,32 @@ class UserProfileController extends Controller
 {
     public function index(){
         $user_profiles = user_profile::all();
-        return view('all_users_profiles', compact('users_profiles'));
+        return view('all_user_profile', compact('user_profiles'));
         
     }
 
-    public function viewForm(){
+    public function index2(){
+        $user_profiles = user_profile::all();
+        return view('my_user_profile', compact('user_profiles'));
+        
+    }
+
+    /*public function viewForm(){
         if(user_profile::where("user_id", Auth::user()->id)->first()){
              return redirect()->back();
         }
         
         return view('add_user_profile');
 
+    }*/
+    public function viewForm(){
+        return view('add_user_profile');
+
     }
+
+    
     public function store(Request $request){
-        if(user_profile::where("user_id", auth()->user()->id)->first()){
+        if(user_profile::where("user_id", Auth::user()->id)->first()){
             return redirect()->back();
         }
         $validated = $request -> validate([
@@ -38,7 +50,7 @@ class UserProfileController extends Controller
         ]);
 
         user_profile::create([
-            'user_id'=> auth()->user()->id,
+            'user_id'=> Auth::user()->id,
             'name' => request('name'),
             'surname' => request('surname'),
             'telephone_number' => request('telephone_number'),
@@ -46,6 +58,6 @@ class UserProfileController extends Controller
             'additional_information' => request('additional_information'),
         ]);
 
-        return redirect('/my_user_profile')->with('message_user_profile_add', 'Sėkmingai pridėjote!');
+        return redirect('/add_user_profile')->with('message_user_profile_add', 'Sėkmingai pridėjote!');
     }
 }

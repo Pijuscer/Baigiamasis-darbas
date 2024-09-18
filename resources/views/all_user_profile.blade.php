@@ -42,31 +42,40 @@
             </nav>
         </header>
       <main>
-        <div class="container mt-4">
-          <div class="d-flex justify-content-center">
-            <div class="col-md-10">
-              <a href="{{ url('/all_users') }}" class="btn btn-success btn-lg atgal">Atgal</a>
-              <h1 class="text-center p-4 about_pavadinimas">Varototojo rolių redagavimas</h1>
-              <form action="" class="row g-3 transboxaboutadd" method="POST">
-                @csrf
-                <div class="row">
-                  <div class="col edit_cares_style">
-                    <label for="when" class="form-label add_label_text">Vardas</label>
-                    <input value="{{ $users->name }}" type="text" class="form-control" placeholder="Nurodytas vardas" aria-label="name" id="name" name="name">
-                  </div>
-                  <div class="col edit_cares_style">
-                    <label for="when" class="form-label add_label_text">Email</label>
-                    <input value="{{ $users->email }}" type="text" class="form-control" placeholder="Nurodytas email" aria-label="email" id="email" name="email">
-                  </div>
-                  <div class="col edit_cares_style">
-                    <label for="when" class="form-label add_label_text">Role</label>
-                    <input value="{{ $users->roles }}" type="text" class="form-control" placeholder="Nurodytas role" aria-label="roles" id="roles" name="roles">
-                  </div>
-                  <div class="d-grid gap-2 d-md-flex justify-content-md-end button_edit">
-                    <button type="submit" class="btn btn-success btn-lg">Redaguoti</button>
-                  </div>
-                </div>
-              </form>
+      @if (session('message_user_edit'))
+                <div class="alert alert-success">{{session('message_user_edit')}}</div>
+              @endif
+      <div class="container mt-4">
+          <a href="{{ url('/my_user_profile') }}" class="btn btn-success btn-lg atgal">Atgal</a>
+          <h1 class="about_pavadinimas text-center p-4">Visų vartotojų profiliai</h1>
+          <div class="row justify-content-center">
+            <div class="col-lg-8 transboxabout ">
+              <table class="table table_style ">
+                <thead class="table_thead">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" class="th_stilius">Vartotojo ID</th>
+                    <th scope="col" class="th_stilius">Vardas</th>
+                    <th scope="col" class="th_stilius">Pavardė</th>
+                    <th scope="col" class="th_stilius">Telefono numeris</th>
+                    <th scope="col" class="th_stilius">Adresas</th>
+                    <th scope="col" class="th_stilius">Papildoma informacija</th>
+                  </tr>
+                </thead>
+                <tbody>
+                @foreach ($user_profiles as $user_profiles2)
+                  <tr class="tr_stilius">
+                    <th scope="row">{{ $user_profiles2->id}}</th>
+                    <td class="th_stilius">{{$user_profiles2->user_id}}</td>
+                    <td class="th_stilius">{{$user_profiles2->name}}</td>
+                    <td class="th_stilius">{{$user_profiles2->surname}}</td>
+                    <td class="th_stilius">{{$user_profiles2->telephone_number}}</td>
+                    <td class="th_stilius">{{$user_profiles2->address}}</td>
+                    <td class="th_stilius">{{$user_profiles2->additional_information}}</td>
+                  </tr>
+                @endforeach
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

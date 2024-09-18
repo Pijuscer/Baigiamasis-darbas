@@ -12,7 +12,7 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 .colorNavbar{
-    background-image: linear-gradient(to right, #3dc299, #47c198);
+    background-color: #006A4E;
 }
 .navbar-brand{
     color: white!important;
@@ -20,7 +20,7 @@ body{
     font-family: 'Caprasimo', cursive !important;
 }
 .nav-link{color:white!important;}
-.nav-link:hover{color:#1c6955!important;}
+.nav-link:hover{color:#DCDCDC!important;}
 .navbar-brand{
     font-family: "Dollie Script Personal Use"
 }
@@ -42,7 +42,7 @@ body{
     
 }
 .footer{
-    background-image: linear-gradient(to right, #3dc299, #47c198);
+    background-color: #006A4E;
 }
 .footer_welcome{
     margin-top: 250px;
@@ -68,6 +68,7 @@ body{
     border: none;
     outline: none;
     text-decoration: none;
+    margin-top: 18px;
 }
 .button_about:hover{
     color:#d0d3d4!important;
@@ -104,4 +105,35 @@ div.transboxabout{
     background: rgba(33, 53, 36, 0.36);
     border-radius: 50px;
     padding: 20px;
+}
+form.transboxaboutadd{
+    background: rgba(17, 68, 25, 0.36);
+    border-radius: 20px;
+    margin-top: 50px
+    
+}
+.add_label_text{
+    font-family: 'Courgette', cursive;
+    font-size: 22px;
+}
+.my_user_profiles{
+    margin-top: 60px;
+}
+div.transboxabout_my{
+    background:rgba(211, 16, 16, 0.123);
+    border-radius: 20px 20px 20px 20px;
+    height: 80px;
+    float:none;
+    margin:auto; 
+    margin-top:30px;
+    margin-bottom: 30px;
+}
+div.transboxabout_my p{
+    font-family: 'Courgette', cursive;
+    color: rgba(211, 15, 15, 0.979);
+    font-size: 18px;
+}
+.button_edit{
+    margin-top: 60px; 
+    margin-bottom:40px;
 }

@@ -42,29 +42,44 @@
             </nav>
         </header>
       <main>
-        <div class="container mt-4">
+      <div class="container mt-4">
+      <a href="{{ url('/my_user_profile') }}" class="btn btn-success btn-lg atgal">Atgal</a>
           <div class="d-flex justify-content-center">
             <div class="col-md-10">
-              <a href="{{ url('/all_users') }}" class="btn btn-success btn-lg atgal">Atgal</a>
-              <h1 class="text-center p-4 about_pavadinimas">Varototojo rolių redagavimas</h1>
-              <form action="" class="row g-3 transboxaboutadd" method="POST">
+              <h1 class="about_pavadinimas text-center p-4">Jūsų profilio užpildymas</h1>
+              @if ($errors->any())
+                <div class="alert alert-danger">
+                  <ul>
+                    @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                    @endforeach
+                  </ul>
+                </div>
+              @endif
+              <form action="/add_user_profile" method="POST" class="row g-3 transboxaboutadd">
                 @csrf
-                <div class="row">
-                  <div class="col edit_cares_style">
-                    <label for="when" class="form-label add_label_text">Vardas</label>
-                    <input value="{{ $users->name }}" type="text" class="form-control" placeholder="Nurodytas vardas" aria-label="name" id="name" name="name">
-                  </div>
-                  <div class="col edit_cares_style">
-                    <label for="when" class="form-label add_label_text">Email</label>
-                    <input value="{{ $users->email }}" type="text" class="form-control" placeholder="Nurodytas email" aria-label="email" id="email" name="email">
-                  </div>
-                  <div class="col edit_cares_style">
-                    <label for="when" class="form-label add_label_text">Role</label>
-                    <input value="{{ $users->roles }}" type="text" class="form-control" placeholder="Nurodytas role" aria-label="roles" id="roles" name="roles">
-                  </div>
-                  <div class="d-grid gap-2 d-md-flex justify-content-md-end button_edit">
-                    <button type="submit" class="btn btn-success btn-lg">Redaguoti</button>
-                  </div>
+                <div class="col-md-4">
+                  <label for="name" class="form-label add_label_text">Vardas</label>
+                  <input value="{{ old('name') }}" type="text" class="form-control" id="name" name="name" placeholder="Įrašykite savo vardą">
+                </div>
+                <div class="col-md-4">
+                  <label for="surname" class="form-label add_label_text">Pavardė</label>
+                  <input value="{{ old('surname') }}" type="text" class="form-control" id="surname" name="surname" placeholder="Įrašykite savo pavardę">
+                </div>
+                <div class="col-md-4">
+                  <label for="telephone_number" class="form-label add_label_text">Telefono numeris</label>
+                  <input value="{{ old('telephone_number') }}" type="text" class="form-control" id="telephone_number" name="telephone_number" placeholder="Įrašykite savo telefono numerį">
+                </div>
+                <div class="col-md-5">
+                  <label for="address" class="form-label add_label_text">Adresas</label>
+                  <input value="{{ old('address') }}" type="text" class="form-control" id="address" name="address" placeholder="Įrašykite savo namų adresą">
+                </div>
+                <div class="col-md-7">
+                  <label for="additional_information" class="form-label add_label_text">Papildoma svarbi informacija apie save</label>
+                  <textarea value="{{ old('additional_information') }}" class="form-control" id="additional_information" name="additional_information" rows="2" placeholder="Įrašykite papildoma informacija apie save"></textarea>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end" style=" margin-top: 60px; margin-bottom:40px;">
+                  <button type="submit" class="btn btn-success btn-lg">Išsaugoti</button>
                 </div>
               </form>
             </div>

@@ -41,36 +41,59 @@
                 </div>
             </nav>
         </header>
-      <main>
+        <main>
+        @if (session('message_user_profile_add'))
+              <div class="alert alert-success">{{session('message_user_profile_add')}}</div>
+            @endif
+            @if (session('message_user_profile_edit'))
+              <div class="alert alert-success">{{session('message_user_profile_edit')}}</div>
+            @endif
         <div class="container mt-4">
-          <div class="d-flex justify-content-center">
-            <div class="col-md-10">
-              <a href="{{ url('/all_users') }}" class="btn btn-success btn-lg atgal">Atgal</a>
-              <h1 class="text-center p-4 about_pavadinimas">Varototojo rolių redagavimas</h1>
-              <form action="" class="row g-3 transboxaboutadd" method="POST">
-                @csrf
-                <div class="row">
-                  <div class="col edit_cares_style">
-                    <label for="when" class="form-label add_label_text">Vardas</label>
-                    <input value="{{ $users->name }}" type="text" class="form-control" placeholder="Nurodytas vardas" aria-label="name" id="name" name="name">
-                  </div>
-                  <div class="col edit_cares_style">
-                    <label for="when" class="form-label add_label_text">Email</label>
-                    <input value="{{ $users->email }}" type="text" class="form-control" placeholder="Nurodytas email" aria-label="email" id="email" name="email">
-                  </div>
-                  <div class="col edit_cares_style">
-                    <label for="when" class="form-label add_label_text">Role</label>
-                    <input value="{{ $users->roles }}" type="text" class="form-control" placeholder="Nurodytas role" aria-label="roles" id="roles" name="roles">
-                  </div>
-                  <div class="d-grid gap-2 d-md-flex justify-content-md-end button_edit">
-                    <button type="submit" class="btn btn-success btn-lg">Redaguoti</button>
-                  </div>
-                </div>
-              </form>
+            <a href="{{ url('/dashboard') }}" class="btn btn-success btn-lg atgal">Atgal</a>
+            <h1 class="about_pavadinimas text-center p-4">Mano profilis</h1>
+            <div class="col-lg-6 transboxabout_my">
+              <p class="text-center">Jeigu esate naujas vartotojas ir neužpildėte profili apie save, galite tai atlikti paspaudę mygtuką „Užpildyti profilį“.</p>
             </div>
-          </div>
-        </div>
-      </main>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 transboxabout ">
+                <table class="table table_style ">
+                    <thead class="table_thead">
+                    <tr>
+                        <th scope="col" class="th_stilius">Vardas</th>
+                        <th scope="col" class="th_stilius">Pavardė</th>
+                        <th scope="col" class="th_stilius">Telefono numeris</th>
+                        <th scope="col" class="th_stilius">Adresas</th>
+                        <th scope="col" class="th_stilius">Papildoma informacija</th>
+                        <th scope="col"></th>
+                      <th scope="col" class="th_stilius">Redaguoti</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($user_profiles as $user_profiles2)
+                    @if($user_profiles2->user_id==\Auth::user()->id)
+                    <tr class="tr_stilius">
+                        <td class="th_stilius">{{$user_profiles2->name}}</td>
+                        <td class="th_stilius">{{$user_profiles2->surname}}</td>
+                        <td class="th_stilius">{{$user_profiles2->telephone_number}}</td>
+                        <td class="th_stilius">{{$user_profiles2->address}}</td>
+                        <td class="th_stilius">{{$user_profiles2->additional_information}}</td>
+                        <td>{{ Str::limit($user_profiles2->description, 50) }}</td>
+                        <td >
+                        <a class='no-underline btn btn-info btn-sm' href="/edit_user_profile/edit/{{$user_profiles2->id }}">Redaguoti</a>
+                      </td>
+                    </tr>
+                    @endif
+                    @endforeach
+                    </tbody>
+                </table>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end my_user_profiles">
+                <a href="{{ url('/add_user_profile') }}" class="btn btn-success btn-lg">Užpildyti profilį</a>
+                <a href="{{ url('/all_user_profile') }}" class="btn btn-success btn-lg">Visi profiliai</a>
+              </div>
+            </div>
+            </div>
+        </main>
       <footer>
         <div class="footer text-center p-3 all_footer">© 2024 Darbą atliko Pijus Černiauskas</div>
       </footer>
