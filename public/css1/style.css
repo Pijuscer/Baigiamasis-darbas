@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&display=swap');
 
 body{
     background-image: url("/image/background8.png");
@@ -115,6 +116,9 @@ form.transboxaboutadd{
 .add_label_text{
     font-family: 'Courgette', cursive;
     font-size: 22px;
+    display: block;
+    text-align: center;
+
 }
 .my_user_profiles{
     margin-top: 60px;
@@ -136,4 +140,38 @@ div.transboxabout_my p{
 .button_edit{
     margin-top: 60px; 
     margin-bottom:40px;
+}
+form.transboxeventadd{
+    /*background: #FFFAFA;*/
+    background-color: white;
+    border-radius: 50px;
+    padding: 20px;
+    border-style: solid;
+    border-color: #16a085 ;
+}
+.addEventInput{
+    border-color: #2E8B57 ;
+    border-style: solid;
+
+}
+.addEventInput:hover {
+    border-color: rgb(0, 106, 0);
+}
+
+/* Focus state for when the input is active */
+.addEventInput:focus {
+    border-color: #009325b4;
+    box-shadow: 0 0 5px rgba(6, 144, 15, 0.5);
+}
+.addEventInput::placeholder {
+    color: #999; /* Light gray color */
+    font-family: "Archivo Narrow", sans-serif;
+    font-size: 15px; /* Slightly smaller font size */
+    opacity: 0.8; /* Light opacity for a soft effect */
+    transition: opacity 0.3s ease;
+}
+/* Make placeholder more visible when the input is hovered */
+.addEventInput:hover::placeholder {
+    opacity: 1; /* Full opacity on hover */
+    color: #666; /* Darker shade on hover for better visibility */
 }

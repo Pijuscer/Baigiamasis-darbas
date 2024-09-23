@@ -18,8 +18,8 @@ return new class extends Migration
             $table->dateTime('event_date');
             $table->string('event_foto');
             $table->longText('more_info');
-            $table->decimal('longitude_coordinate');
-            $table->decimal('latitude_coordinate');
+            $table->float('longitude_coordinate');
+            $table->float('latitude_coordinate');
             $table->timestamps();
         });
     }

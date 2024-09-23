@@ -32,4 +32,6 @@ Route::get('/my_user_profile', [UserProfileController::class, 'index2']);
 
 Route::get('/add_event', [EventController::class, 'viewForm']);
 Route::post('/add_event', [EventController::class, 'store']);
-
+Route::get('/all_events', [EventController::class, 'index']);
+Route::get('/all_events/edit/{id}', [EventController::class, 'editForm']);
+Route::post('/all_events/edit/{id}', [EventController::class, 'edit'])->name('event.update');
