@@ -42,50 +42,43 @@
             </nav>
         </header>
       <main>
-      @if (session('message_user_edit'))
-                <div class="alert alert-success">{{session('message_user_edit')}}</div>
-              @endif
       <div class="container mt-4">
           <a href="{{ url('/my_user_profile') }}" class="btn btn-success btn-lg atgal">Atgal</a>
-          <h1 class="about_pavadinimas text-center p-4">Visi renginiai</h1>
+          <h1 class="about_pavadinimas text-center p-4">Visų renginių rezervacijos</h1>
           <div class="row justify-content-center">
             <div class="col-lg-9 transboxabout ">
               <table class="table table_style ">
                 <thead class="table_thead">
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col" class="th_stilius">Renginio pavadinimas</th>
-                    <th scope="col" class="th_stilius">Renginio adresas</th>
-                    <th scope="col" class="th_stilius">Renginio laikas ir valanda</th>
-                    <th scope="col" class="th_stilius">Renginio nuotrauka</th>
-                    <th scope="col" class="th_stilius">Papildoma informacija apie renginį</th>
-                    <th scope="col" class="th_stilius">Renginio dalyvių skaičius</th>
-                    <th scope="col" class="th_stilius">Renginio vietovės ilgumos koordinatės</th>
-                    <th scope="col" class="th_stilius">Renginio vietovės platumos koordinatės</th>
-                    <th scope="col" class="th_stilius">Redaguoti</th>
-                    <th scope="col" class="th_stilius">Ištrinti</th>
+                    @if (auth()->user()->roles=='Administratorius' || auth()->user()->roles=='Darbuotojas')
+                        <th scope="col">#</th>
+                      @endif
+                    <th scope="col" class="th_stilius">Vartotojas</th>
+                    <th scope="col" class="th_stilius">Renginys</th>
                   </tr>
                 </thead>
                 <tbody>
-                @foreach ($events as $events2)
-                  <tr class="tr_stilius">
-                    <th scope="row">{{ $events2->id}}</th>
-                    <td class="th_stilius">{{$events2->event_name}}</td>
-                    <td class="th_stilius">{{$events2->event_address}}</td>
-                    <td class="th_stilius">{{$events2->event_date}}</td>
-                    <td class="th_stilius"><img src="{{ asset('storage/'.$events2->event_foto) }}" width="50" height="50" class="img img-responsive"/></td>
-                    <td class="th_stilius">{{$events2->event_more_info}}</td>
-                    <td class="th_stilius">{{$events2->event_number_of_participants}}</td>
-                    <td class="th_stilius">{{$events2->event_longitude_coordinate}}</td>
-                    <td class="th_stilius">{{$events2->event_latitude_coordinate}}</td>
-                    <td class="th_stilius">
-                        <a class='no-underline btn btn-warning btn-sm' href="/all_events/edit/{{$events2->id }}">Redaguoti</a>
-                    </td>
-                    <td class="th_style">
-                        <a class='no-underline btn btn-danger btn-sm' href="/all_events/remove/{{$events2->id }}">Ištrinti</a>
-                    </td>
-                  </tr>
-                @endforeach
+                @isset($event_rezervations)
+                    @foreach ( $event_rezervations as  $all_event_reservate)
+                    <tr class="tr_stilius">
+                        @if (auth()->user()->roles=='Administratorius' || auth()->user()->roles=='Darbuotojas')
+                          <th scope="row">{{  $all_event_reservate->id }}</th>
+                        @endif
+                        @foreach ( $users as $user)
+                        @if ($user->id == $all_event_reservate->user_profile_id)
+                          <td>{{$user->name }} {{$user->surname}}</td>  
+                        @endif
+                        @endforeach
+                  
+                          @foreach ($event as $ev)
+                            @if ($all_event_reservate->event_id == $ev->id)
+                              <td>{{$ev->event_name }} {{$ev->event_organizer}}</td>  
+                            @endif
+
+                        @endforeach
+                    </tr>
+                    @endforeach
+                    @endisset
                 </tbody>
               </table>
             </div>

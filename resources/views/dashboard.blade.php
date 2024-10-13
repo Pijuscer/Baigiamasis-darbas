@@ -21,7 +21,7 @@
                     </button>
                     <div class="collapse navbar-collapse navbar-collapse justify-content-end" id="navbarCollapse">
                         <a href="{{ url('/my_user_profile') }}" class="link nav-link">Mano profilis</a>
-                        <a href="{{ url('/cares') }}" class="link nav-link">Renginiai</a>
+                        <a href="{{ url('/events') }}" class="link nav-link">Renginiai</a>
                         <a href="{{ url('/prices') }}" class="link nav-link">Stovyklos</a>
                         <a href="{{ url('/prices') }}" class="link nav-link">Konsultacijos</a>
                         <a href="{{ url('/about') }}" class="link nav-link">Apie</a>

@@ -1,8 +1,10 @@
 <?php
 
 use App\Actions\Fortify\CreateNewUser;
+use App\Http\Controllers\CampController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventRezervationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -30,8 +32,21 @@ Route::post('/add_user_profile', [UserProfileController::class, 'store']);
 Route::get('/all_user_profile', [UserProfileController::class, 'index']);
 Route::get('/my_user_profile', [UserProfileController::class, 'index2']);
 
+Route::post('/user_profile_verified/{id}', [UserProfileController::class, 'verify_user'])->name('verify_profile');
+
 Route::get('/add_event', [EventController::class, 'viewForm']);
 Route::post('/add_event', [EventController::class, 'store']);
 Route::get('/all_events', [EventController::class, 'index']);
 Route::get('/all_events/edit/{id}', [EventController::class, 'editForm']);
 Route::post('/all_events/edit/{id}', [EventController::class, 'edit'])->name('event.update');
+Route::get('/all_events/remove/ask/{id}', [EventController::class, 'removeForm']);
+Route::get('/all_events/remove/{id}', [EventController::class, 'remove']);
+
+Route::get('/events', [EventController::class, 'eventsAll']);
+
+Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
+Route::post('/events/{id}', [EventRezervationController::class, 'store'])->name('events.rezervation');
+Route::get('/all_event_reservation', [EventRezervationController::class, 'index'])->name("all_event_reservation");
+
+Route::get('/add_camp', [CampController::class, 'viewForm']);
+Route::post('/add_camp', [CampController::class, 'store']);

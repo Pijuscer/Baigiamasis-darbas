@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('telephone_number');
             $table->string('address');
             $table->longText('additional_information');
+            $table->boolean('verified')->default(false);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

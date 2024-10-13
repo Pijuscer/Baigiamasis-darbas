@@ -10,11 +10,13 @@ class Event extends Model
     use HasFactory;
     protected $fillable = [
         'event_name',
+        'event_organizer',
         'event_address',
         'event_date',
         'event_foto',
-        'more_info',
-        'longitude_coordinate',
-        'latitude_coordinate'
+        'event_more_info',
+        'event_number_of_participants',
+        'event_longitude_coordinate',
+        'event_latitude_coordinate'
     ];
 }

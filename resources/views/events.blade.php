@@ -27,9 +27,11 @@
                         <a href="{{ url('/about') }}" class="link nav-link">Apie</a>
                         <a href="{{ url('/all_users') }}" class="link nav-link">Rolės</a>
                         <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                          @if(Auth::user() != null)
+                          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ Auth::user()->name }}
-                        </button>
+                          </button>
+                          @endif
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                           <form method="POST" action="{{ route('logout') }}" x-data>
                             @csrf
@@ -42,51 +44,36 @@
             </nav>
         </header>
       <main>
-      @if (session('message_user_edit'))
-                <div class="alert alert-success">{{session('message_user_edit')}}</div>
-              @endif
       <div class="container mt-4">
-          <a href="{{ url('/my_user_profile') }}" class="btn btn-success btn-lg atgal">Atgal</a>
-          <h1 class="about_pavadinimas text-center p-4">Visų vartotojų profiliai</h1>
-          <div class="row justify-content-center">
-            <div class="col-lg-8 transboxabout ">
-              <table class="table table_style ">
-                <thead class="table_thead">
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col" class="th_stilius">Vartotojo ID</th>
-                    <th scope="col" class="th_stilius">Vardas</th>
-                    <th scope="col" class="th_stilius">Pavardė</th>
-                    <th scope="col" class="th_stilius">Telefono numeris</th>
-                    <th scope="col" class="th_stilius">Adresas</th>
-                    <th scope="col" class="th_stilius">Papildoma informacija</th>
-                    <th scope="col" class="th_stilius">Profilio patvirtinimas</th>
-                  </tr>
-                </thead>
-                <tbody>
-                @foreach ($user_profiles as $user_profile)
-                  <tr class="tr_stilius">
-                    <th scope="row">{{ $user_profile->id}}</th>
-                    <td class="th_stilius">{{$user_profile->user_id}}</td>
-                    <td class="th_stilius">{{$user_profile->name}}</td>
-                    <td class="th_stilius">{{$user_profile->surname}}</td>
-                    <td class="th_stilius">{{$user_profile->telephone_number}}</td>
-                    <td class="th_stilius">{{$user_profile->address}}</td>
-                    <td class="th_stilius">{{$user_profile->additional_information}}</td>
-                    <td>
-                    <form action="{{ route('verify_profile', $user_profile->id) }}" method="POST" class="row g-1">
-                    @csrf
-                    @if ($user_profile->verified == 1)
-                      <button type="submit" class="btn btn-outline-danger">Atšaukti</button>
-                      @else
-                      <button type="submit" class="btn btn-outline-success">Patvirtinti</button>
-                    @endif
-                    </form>
-                    </td>
-                  </tr>
-                @endforeach
-                </tbody>
-              </table>
+      <a href="{{ url('/my_user_profile') }}" class="btn btn-success btn-lg back_button">Atgal</a>
+          <div class="d-flex justify-content-center">
+            <div class="col-md-10">
+              <h1 class="about_pavadinimas text-center p-4">Renginiai</h1>
+              <div class="row ">
+                        <!-- Kiekvienai picai sukuriama forma kurios iš kontrolerio -->
+                        @foreach ($events as $event)
+                        <form action="{{ route('events.show', $event->id) }}" method="GET" class="col-sm mx-auto d-flex justify-content-center form_style">
+                        @csrf
+                            <div class="card card_style  " style="width: 20rem;">
+                                <img src="{{ asset('storage/'.$event->event_foto) }}" class="card-img-top pizzas_dashboard" alt="..." name="pizza_foto">
+                                <div class="card-body">
+                                    <h5 class="card-title dashboard_card_title">{{$event->event_name}}</h5>
+                                    <h5 class="card-title dashboard_card_title2">Renginio data</h5>
+                                    <p class="card-text dashboard_card_text">{{$event->event_date}}</p>
+                                    <h5 class="card-title dashboard_card_title2">Renginio adresas</h5>
+                                    <p class="card-text dashboard_card_text">{{$event->event_address}}</p>
+                                </div>
+                                
+                                @if (Auth::check() && (Auth::user()->roles == "Administratorius" || (isset($userProfile) && $userProfile->verified == true)))
+                                  <button type="submit" class="btn btn-success btn-lg btn_more">Plačiau</button>
+                                @endif
+                              
+                                
+                               
+                            </div>
+                            </form>
+                        @endforeach
+                    </div>
             </div>
           </div>
         </div>

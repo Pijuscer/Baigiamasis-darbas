@@ -4,11 +4,69 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\event;
+use App\Models\User_profile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class EventController extends Controller
 {
 
+    // Show metodas
+    public function show($id)
+    {
+        // Surandame konkretų renginį pagal jo ID
+        $event = Event::findOrFail($id);
+
+        // Grąžiname vaizdą su platesne informacija apie renginį
+        //return view('show', compact('event'));
+
+        // Get the authenticated user's ID
+        $userId = Auth::user()->id;
+    
+        // Find the user's profile by user ID and check if it is verified
+        $userProfile = User_profile::where('user_id', $userId)->first();
+    
+        if ($userProfile && $userProfile->verified) {
+            // If the profile is verified, retrieve all events
+            $events = Event::all();
+            
+            // Return the view with the events
+            return view('show_event', compact('event'));
+        }
+        // Return the view with the events
+        return view('show_event', compact('event'));
+    
+        // If not verified, redirect back
+        return redirect()->back()->with('error', 'Your profile is not verified.');
+    }
+    
+    //Atvaizduojami iš DB pasirinkimai pagrindiniame lange
+    public function eventsAll(Request $request)
+    {
+        // If the profile is verified, retrieve all events
+        $events = Event::all();
+
+        // Get the authenticated user's ID
+        if(Auth::user()){
+            $userId = Auth::user()->id;
+             // Find the user's profile by user ID and check if it is verified
+            $userProfile = User_profile::where('user_id', $userId)->first();
+
+             // Return the view with the events
+             return view('events', compact('events', "userProfile"));
+        }
+        
+    
+        //if ($userProfile && $userProfile->verified) {
+            
+            // Return the view with the events
+            return view('events', compact('events'));
+        //}
+    
+        // If not verified, redirect back
+        return redirect()->back()->with('error', 'Your profile is not verified.');
+    }
 
     public function index(){
         $events = event::all();
@@ -26,12 +84,14 @@ class EventController extends Controller
         
         $validated = $request -> validate([
             'event_name' => 'required|max:225|',
+            'event_organizer' => 'required|max:225|',
             'event_address' => 'required|max:225|',
             'event_date' => 'required',
             'event_foto' => 'required',
-            'more_info' => 'required',
-            'longitude_coordinate' => 'required',
-            'latitude_coordinate' => 'required',
+            'event_more_info' => 'required',
+            'event_number_of_participants' => 'required',
+            'event_longitude_coordinate' => 'required',
+            'event_latitude_coordinate' => 'required',
 
         ]);
 
@@ -40,12 +100,14 @@ class EventController extends Controller
 
         event::create([
             'event_name' => request('event_name'),
+            'event_organizer' => request('event_organizer'),
             'event_address' => request('event_address'),
             'event_date' => request('event_date'),
             'event_foto' => $events,
-            'more_info' => request('more_info'),
-            'longitude_coordinate' => request('longitude_coordinate'),
-            'latitude_coordinate' => request('latitude_coordinate')
+            'event_more_info' => request('event_more_info'),
+            'event_number_of_participants' => request('event_number_of_participants'),
+            'event_longitude_coordinate' => request('event_longitude_coordinate'),
+            'event_latitude_coordinate' => request('event_latitude_coordinate')
         ]);
 
        
@@ -64,12 +126,14 @@ class EventController extends Controller
         
              $validated = $request -> validate([
                 'event_name' => 'required|max:225|',
+                'event_organizer' => 'required|max:225|',
                 'event_address' => 'required|max:225|',
                 'event_date' => 'required',
                 'event_foto' => '',
-                'more_info' => 'required',
-                'longitude_coordinate' => 'required|max:225|',
-                'latitude_coordinate' => 'required|max:225|',
+                'event_more_info' => 'required',
+                'event_number_of_participants' => 'required|max:225|',
+                'event_longitude_coordinate' => 'required|max:225|',
+                'event_latitude_coordinate' => 'required|max:225|',
         
              ]);
 
@@ -86,16 +150,30 @@ class EventController extends Controller
             //$request->file('event_foto')->store('event_foto', 'public');
 
             $events->event_name = request('event_name');
+            $events->event_organizer = request('event_organizer');
             $events->event_address = request('event_address');
             $events->event_date = request('event_date');
             if ($path !== "" && $path !== null) {
                 $events->event_foto = $path;
             }
-            $events->more_info = request('more_info');
-            $events->longitude_coordinate = request('longitude_coordinate');
-            $events->latitude_coordinate = request('latitude_coordinate');
+            $events->event_more_info = request('event_more_info');
+            $events->event_number_of_participants = request('event_number_of_participants');
+            $events->event_longitude_coordinate = request('event_longitude_coordinate');
+            $events->event_latitude_coordinate = request('event_latitude_coordinate');
             $events->save();
     
             return redirect('/all_events')->with('message_events_edit', 'Jūs sėkmingai redagavote įrašą!');
+        }
+
+        public function removeForm($id){
+            $events = event::where('id', $id)->firstOrFail(); 
+    
+            return view('remove_working_days]',compact("freedom"));
+        }
+        public function remove($id){
+            $events = event::where('id', $id)->firstOrFail();
+            $events->delete();
+    
+            return redirect('/all_events')->with('message_freedom_delete', 'Sėkmingai ištrynėte!');
         }
 }

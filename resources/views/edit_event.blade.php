@@ -55,10 +55,14 @@
                   <input value="{{ $events->event_name }}" type="text" class="form-control addEventInput" id="event_name" name="event_name" aria-label="event_name" placeholder="Redaguoti renginio pavadinimą">
                 </div>
                 <div class="col-md-4">
+                  <label for="event_organizer" class="form-label add_label_text">Renginio organizatorius</label>
+                  <input value="{{ $events->event_organizer }}" type="text" class="form-control addEventInput" id="event_organizer" name="event_organizer" placeholder="Redaguoti renginio pavadinimą">
+                </div>
+                <div class="col-md-4">
                   <label for="event_address" class="form-label add_label_text">Renginio adresas</label>
                   <input value="{{ $events->event_address }}" type="text" class="form-control addEventInput" id="event_address" name="event_address" aria-label="event_address" placeholder="Redaguoti renginio adresą">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 event_date_style">
                     <label for="event_date" class="form-label add_label_text">Renginio laikas ir valanda</label>
                     <input value="{{ \Carbon\Carbon::parse($events->event_date)->format('Y-m-d\TH:i') }}" class="addEventInput" type="datetime-local" id="event_date" name="event_date" aria-label="event_date">
                 </div>
@@ -71,17 +75,22 @@
                   @endif
                 </div>
 
+                <div class="col-md-4">
+                  <label for="event_number_of_participants" class="form-label add_label_text">Renginio dalyvių skaičius</label>
+                  <input value="{{ $events->event_number_of_participants }}" type="text" class="form-control addEventInput" id="event_number_of_participants" name="event_number_of_participants" aria-label="event_number_of_participants" placeholder="Redaguoti renginio dalyvių skaičių">
+                </div>
+
                 <div class="col-md-6">
-                    <label for="more_info" class="form-label add_label_text">Papildoma informacija apie renginį</label>
-                    <textarea class="form-control addEventInput" id="more_info" name="more_info" rows="2" aria-label="more_info" placeholder="Redaguoti papildomą informaciją apie renginį">{{ $events->more_info }}</textarea>
+                    <label for="event_more_info" class="form-label add_label_text">Papildoma informacija apie renginį</label>
+                    <textarea class="form-control addEventInput" id="event_more_info" name="event_more_info" rows="2" aria-label="event_more_info" placeholder="Redaguoti papildomą informaciją apie renginį">{{ $events->event_more_info }}</textarea>
                 </div>
                 <div class="col-md-4 mx-auto center">
-                  <label for="longitude_coordinate" class="form-label add_label_text">Renginio vietovės ilgumos koordinatės</label>
-                  <input value="{{ $events->longitude_coordinate }}" type="text" class="form-control addEventInput" id="longitude_coordinate" name="longitude_coordinate" aria-label="longitude_coordinate" placeholder="Redaguoti renginio vietovės ilgumos koordinates">
+                  <label for="event_longitude_coordinate" class="form-label add_label_text">Renginio vietovės ilgumos koordinatės</label>
+                  <input value="{{ $events->event_longitude_coordinate }}" type="text" class="form-control addEventInput" id="event_longitude_coordinate" name="event_longitude_coordinate" aria-label="event_longitude_coordinate" placeholder="Redaguoti renginio vietovės ilgumos koordinates">
                 </div>
                 <div class="col-md-4 mx-auto center">
-                  <label for="latitude_coordinate" class="form-label add_label_text">Renginio vietovės platumos koordinatės</label>
-                  <input value="{{ $events->latitude_coordinate }}" type="text" class="form-control addEventInput" id="latitude_coordinate" name="latitude_coordinate" aria-label="latitude_coordinate" placeholder="Redaguoti renginio vietovės platumos koordinates">
+                  <label for="event_latitude_coordinate" class="form-label add_label_text">Renginio vietovės platumos koordinatės</label>
+                  <input value="{{ $events->event_latitude_coordinate }}" type="text" class="form-control addEventInput" id="event_latitude_coordinate" name="event_latitude_coordinate" aria-label="event_latitude_coordinate" placeholder="Redaguoti renginio vietovės platumos koordinates">
                 </div>
                   <div class="d-grid gap-2 d-md-flex justify-content-md-end button_edit">
                     <button type="submit" class="btn btn-success btn-lg">Redaguoti</button>

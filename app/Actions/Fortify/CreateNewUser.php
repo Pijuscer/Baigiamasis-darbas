@@ -27,13 +27,13 @@ class CreateNewUser implements CreatesNewUsers
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
-        $roles = 'user';  // Default role
+        $roles = 'Vartotojas';  // Default role
         $userCount = User::all()->count();  // Get the count of all users
 
         if ($userCount == 0) {
-            $roles = 'admin';  // If no users exist, set role to 'admin'
+            $roles = 'Administratorius';  // If no users exist, set role to 'admin'
         } elseif ($userCount == 1) {
-        $roles = 'worker';  // If one user exists, set role to 'worker'
+        $roles = 'Darbuotojas';  // If one user exists, set role to 'worker'
         }
 
         return User::create([

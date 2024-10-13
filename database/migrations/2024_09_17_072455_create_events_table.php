@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('event_name');
+            $table->string('event_organizer');
             $table->string('event_address');
             $table->dateTime('event_date');
             $table->string('event_foto');
-            $table->longText('more_info');
-            $table->float('longitude_coordinate');
-            $table->float('latitude_coordinate');
+            $table->longText('event_more_info');
+            $table->integer('event_number_of_participants');
+            $table->float('event_longitude_coordinate');
+            $table->float('event_latitude_coordinate');
             $table->timestamps();
         });
     }

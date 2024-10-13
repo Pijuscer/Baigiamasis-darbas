@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\user_profile;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +33,17 @@ class UserProfileController extends Controller
     public function viewForm(){
         return view('add_user_profile');
 
+    }
+
+    public function verify_user(Request $request, $id){
+
+        if(Auth::user()->roles == "Administratorius"|| Auth::user()->roles == "Darbuotojas"){
+            $profile = user_profile::where("id", $id)->first();
+            $profile->verified = !$profile->verified;
+            $profile->save();
+
+        }
+        return redirect()->back();
     }
 
     
