@@ -72,4 +72,32 @@ class UserProfileController extends Controller
 
         return redirect('/add_user_profile')->with('message_user_profile_add', 'Sėkmingai pridėjote!');
     }
+
+    public function editForm($id){
+        $users_profiles = user_profile::where('id', $id)->firstOrFail();
+
+        return view('edit_user_profile',compact("users_profiles"));
+    }
+    public function edit(Request $request, $id){
+
+         $validated = $request -> validate([
+            'name' => 'required|max:225|regex:/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ]+$/',
+            'surname' => 'required|max:225|regex:/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ]+$/',
+            'telephone_number' => 'required|max:225',
+            'address' => 'required|max:225',
+            'additional_information' => 'required|max:225',
+    
+         ]);
+
+        $users_profiles = user_profile::where('id', $id)->firstOrFail();
+
+        $users_profiles->name = request('name');
+        $users_profiles->surname = request('surname');
+        $users_profiles->telephone_number = request('telephone_number');
+        $users_profiles->address = request('address');
+        $users_profiles->additional_information = request('additional_information');
+        $users_profiles->save();
+
+        return redirect('/my_user_profile')->with('message_user_profile_edit', 'Sėkmingai redagavote!');
+    }
 }

@@ -49,12 +49,13 @@
           <a href="{{ url('/my_user_profile') }}" class="btn btn-success btn-lg atgal">Atgal</a>
           <h1 class="about_pavadinimas text-center p-4">Visi renginiai</h1>
           <div class="row justify-content-center">
-            <div class="col-lg-9 transboxabout ">
+            <div class="col-lg-11 transboxabout ">
               <table class="table table_style ">
                 <thead class="table_thead">
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col" class="th_stilius">Renginio pavadinimas</th>
+                    <th scope="col" class="th_stilius">Renginioi organizatorius</th>
                     <th scope="col" class="th_stilius">Renginio adresas</th>
                     <th scope="col" class="th_stilius">Renginio laikas ir valanda</th>
                     <th scope="col" class="th_stilius">Renginio nuotrauka</th>
@@ -67,22 +68,23 @@
                   </tr>
                 </thead>
                 <tbody>
-                @foreach ($events as $events2)
+                @foreach ($events as $event)
                   <tr class="tr_stilius">
-                    <th scope="row">{{ $events2->id}}</th>
-                    <td class="th_stilius">{{$events2->event_name}}</td>
-                    <td class="th_stilius">{{$events2->event_address}}</td>
-                    <td class="th_stilius">{{$events2->event_date}}</td>
-                    <td class="th_stilius"><img src="{{ asset('storage/'.$events2->event_foto) }}" width="50" height="50" class="img img-responsive"/></td>
-                    <td class="th_stilius">{{$events2->event_more_info}}</td>
-                    <td class="th_stilius">{{$events2->event_number_of_participants}}</td>
-                    <td class="th_stilius">{{$events2->event_longitude_coordinate}}</td>
-                    <td class="th_stilius">{{$events2->event_latitude_coordinate}}</td>
+                    <th scope="row">{{ $event->id}}</th>
+                    <td class="th_stilius">{{$event->event_name}}</td>
+                    <td class="th_stilius">{{$event->event_organizer}}</td>
+                    <td class="th_stilius">{{$event->event_address}}</td>
+                    <td class="th_stilius">{{$event->event_date}}</td>
+                    <td class="th_stilius"><img src="{{ asset('storage/'.$event->event_foto) }}" width="50" height="50" class="img img-responsive"/></td>
+                    <td class="th_stilius">{{$event->event_more_info}}</td>
+                    <td class="th_stilius">{{$event->event_number_of_participants}}</td>
+                    <td class="th_stilius">{{$event->event_longitude_coordinate}}</td>
+                    <td class="th_stilius">{{$event->event_latitude_coordinate}}</td>
                     <td class="th_stilius">
-                        <a class='no-underline btn btn-warning btn-sm' href="/all_events/edit/{{$events2->id }}">Redaguoti</a>
+                        <a class='no-underline btn btn-warning btn-sm' href="/all_events/edit/{{$event->id }}">Redaguoti</a>
                     </td>
                     <td class="th_style">
-                        <a class='no-underline btn btn-danger btn-sm' href="/all_events/remove/{{$events2->id }}">Ištrinti</a>
+                        <a class='no-underline btn btn-danger btn-sm' href="/all_events/remove/{{$event->id }}">Ištrinti</a>
                     </td>
                   </tr>
                 @endforeach

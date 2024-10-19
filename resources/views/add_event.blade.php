@@ -60,11 +60,11 @@
                 @csrf
                 <div class="col-md-4">
                   <label for="event_name" class="form-label add_label_text">Renginio pavadinimas</label>
-                  <input value="{{ old('event_name') }}" type="text" class="form-control addEventInput" id="event_name" name="event_name" placeholder="Įrašykite renginio organizatorių">
+                  <input value="{{ old('event_name') }}" type="text" class="form-control addEventInput" id="event_name" name="event_name" placeholder="Įrašykite renginio pavadinimą">
                 </div>
                 <div class="col-md-4">
                   <label for="event_organizer" class="form-label add_label_text">Renginio organizatorius</label>
-                  <input value="{{ old('event_organizer') }}" type="text" class="form-control addEventInput" id="event_organizer" name="event_organizer" placeholder="Įrašykite renginio pavadinimą">
+                  <input value="{{ old('event_organizer') }}" type="text" class="form-control addEventInput" id="event_organizer" name="event_organizer" placeholder="Įrašykite renginio organizatorių">
                 </div>
                 <div class="col-md-4">
                   <label for="event_address" class="form-label add_label_text">Renginio adresas</label>
@@ -78,7 +78,7 @@
                     <label for="formFile" class="form-label add_label_text">Renginio nuotrauka</label>
                     <input value="{{ old('event_foto') }}" class="form-control addEventInput" type="file" id="formFile" name="event_foto">
                 </div>
-                <div class="col-md-6 mx-auto center">
+                <div class="col-md-7 mx-auto center">
                   <label for="event_more_info" class="form-label add_label_text">Papildoma informacija apie renginį</label>
                   <textarea value="{{ old('event_more_info') }}" class="form-control addEventInput" id="event_more_info" name="event_more_info" rows="2" placeholder="Įrašykite papildomą informaciją apie renginį"></textarea>
                 </div>

@@ -20,6 +20,11 @@ body{
     background-attachment: fixed;
     background-size: cover;
     font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Pašalina horizontalų slinkimą */
+    max-width: 100%; /* Nustato maksimalią puslapio plotį */
 }
 .colorNavbar{
     background-color: #006A4E;
@@ -95,7 +100,8 @@ body{
     border-radius:20px;
     overflow: hidden;
     margin-top: 20px;
-    table-layout: auto; 
+    table-layout: auto;
+    
 }
 .table_thead{
     text-align: center;
@@ -116,7 +122,7 @@ div.transboxabout{
     border-radius: 50px;
     padding: 20px;
 }
-form.transboxaboutadd{
+form.transboxaboutadd, form.transboxuserprofileadd, form.transboxuserroleedit{
     background: rgba(17, 68, 25, 0.36);
     border-radius: 20px;
     margin-top: 50px
@@ -150,7 +156,7 @@ div.transboxabout_my p{
     margin-top: 60px; 
     margin-bottom:40px;
 }
-form.transboxeventadd{
+form.transboxeventadd, form.transboxuserprofileadd, form.transboxuserroleedit{
     /*background: #FFFAFA;*/
     background-color: white;
     border-radius: 50px;
@@ -158,21 +164,21 @@ form.transboxeventadd{
     border-style: solid;
     border-color: #16a085 ;
 }
-.addEventInput{
+.addEventInput, .addUserProfileInput, .editUserRoleInput, .editEventInput{
     border-color: #2E8B57 ;
     border-style: solid;
 
 }
-.addEventInput:hover {
+.addEventInput, .addUserProfileInput, .editUserRoleInput, .editEventInput:hover {
     border-color: rgb(0, 106, 0);
 }
 
 /* Focus state for when the input is active */
-.addEventInput:focus {
+.addEventInput, .addUserProfileInput, .editUserRoleInput, .editEventInput:focus {
     border-color: #009325b4;
     box-shadow: 0 0 5px rgba(6, 144, 15, 0.5);
 }
-.addEventInput::placeholder {
+.addEventInput, .addUserProfileInput, .editUserRoleInput, .editEventInput::placeholder {
     color: #999; /* Light gray color */
     font-family: "Archivo Narrow", sans-serif;
     font-size: 15px; /* Slightly smaller font size */
@@ -180,7 +186,7 @@ form.transboxeventadd{
     transition: opacity 0.3s ease;
 }
 /* Make placeholder more visible when the input is hovered */
-.addEventInput:hover::placeholder {
+.addEventInput, .addUserProfileInput, .editUserRoleInput, .editEventInput:hover::placeholder {
     opacity: 1; /* Full opacity on hover */
     color: #666; /* Darker shade on hover for better visibility */
 }
@@ -196,6 +202,7 @@ form.transboxeventadd{
 .card_style {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+    max-width: 100%; /* Užtikrina, kad kortelės neviršytų ekrano pločio */
   }
   
   .card_style:hover {
@@ -242,6 +249,82 @@ form.transboxeventadd{
       justify-content: center;
     }
   }
+
+  /* Media queries, kad būtų geresnis stilius mažesniems įrenginiams */
+@media (max-width: 768px) {
+    /* Lentelė turi būti slenkanti per mažus ekranus */
+.table_style {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+    white-space: nowrap;
+}
+    .navbar-collapse {
+        background-color: #f8f9fa;
+        padding: 10px;
+    }
+
+    .nav-link {
+        font-size: 1rem;
+        padding: 10px 0;
+    }
+
+    .dropdown-menu {
+        width: 100%;
+    }
+
+    .transboxabout {
+        padding: 15px;
+    }
+
+    .atgal {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .table {
+        font-size: 0.9rem;
+    }
+
+    .btn-success {
+        font-size: 1.2rem;
+        width: 100%;
+    }
+
+    .about_pavadinimas {
+        font-size: 2rem;
+    }
+
+    .th_stilius, .td_stilius {
+        font-size: 0.8rem;
+    }
+
+    .card_style {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .card-body {
+        padding: 10px;
+    }
+
+    .dashboard_card_title {
+        font-size: 1.1rem;
+    }
+
+    .dashboard_card_text {
+        font-size: 0.85rem;
+    }
+
+    .btn_more {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    .btn-success {
+        font-size: 1rem;
+        width: 100%;
+    }
   
   /* Desktop ir mobiliojo įrenginio išdėstymas */
   @media (max-width: 576px) {
@@ -263,9 +346,9 @@ form.transboxeventadd{
 
 
 .container {
-    max-width: 1000px; /* Reduced width for a more compact layout */
     margin: 0 auto;
     padding: 20px;
+    max-width: 100%; /* Užtikrina, kad konteineriai neturėtų per didelio pločio */
 }
 
 .back_button {
@@ -334,6 +417,4 @@ form.transboxeventadd{
         max-width: 100%;
     }
 }
-
-
-
+}

@@ -42,31 +42,51 @@
             </nav>
         </header>
       <main>
-        <div class="container mt-4">
-          <div class="d-flex justify-content-center">
-            <div class="col-md-10">
-              <a href="{{ url('/all_users') }}" class="btn btn-success btn-lg atgal">Atgal</a>
-              <h1 class="text-center p-4 about_pavadinimas">Varototojo rolių redagavimas</h1>
-              <form action="" class="row g-3 transboxuserroleedit" method="POST">
-                @csrf
-                <div class="row">
-                  <div class="col edit_cares_style">
-                    <label for="when" class="form-label add_label_text">Vardas</label>
-                    <input value="{{ $users->name }}" type="text" class="form-control editUserRoleInput" placeholder="Nurodytas vardas" aria-label="name" id="name" name="name">
-                  </div>
-                  <div class="col edit_cares_style">
-                    <label for="when" class="form-label add_label_text">Email</label>
-                    <input value="{{ $users->email }}" type="text" class="form-control editUserRoleInput" placeholder="Nurodytas email" aria-label="email" id="email" name="email">
-                  </div>
-                  <div class="col edit_cares_style">
-                    <label for="when" class="form-label add_label_text">Role</label>
-                    <input value="{{ $users->roles }}" type="text" class="form-control editUserRoleInput" placeholder="Nurodytas role" aria-label="roles" id="roles" name="roles">
-                  </div>
-                  <div class="d-grid gap-2 d-md-flex justify-content-md-end button_edit">
-                    <button type="submit" class="btn btn-success btn-lg">Redaguoti</button>
-                  </div>
-                </div>
-              </form>
+      <div class="container mt-4">
+          <a href="{{ url('/my_user_profile') }}" class="btn btn-success btn-lg atgal">Atgal</a>
+          <h1 class="about_pavadinimas text-center p-4">Visų stovyklų rezervacijos</h1>
+          <div class="row justify-content-center">
+            <div class="col-lg-11 transboxabout ">
+              <table class="table table_style ">
+                <thead class="table_thead">
+                  <tr>
+                    @if (auth()->user()->roles=='Administratorius' || auth()->user()->roles=='Darbuotojas')
+                        <th scope="col">#</th>
+                      @endif
+                    <th scope="col" class="th_stilius">Dalyvis</th>
+                    <th scope="col" class="th_stilius">Dalyvio tel. numeris</th>
+                    <th scope="col" class="th_stilius">Stovykla</th>
+                  </tr>
+                </thead>
+                <tbody>
+                @isset($camp_rezervations)
+                    @foreach ( $camp_rezervations as  $all_camp_reservate)
+                    <tr class="tr_stilius">
+                        @if (auth()->user()->roles=='Administratorius' || auth()->user()->roles=='Darbuotojas')
+                          <th scope="row">{{  $all_camp_reservate->id }}</th>
+                        @endif
+                        @foreach ( $users as $user)
+                        @if ($user->id == $all_camp_reservate->user_profile_id)
+                          <td>{{$user->name }} {{$user->surname}}</td>  
+                        @endif
+                        @endforeach
+                        @foreach ( $users as $user)
+                        @if ($user->id == $all_camp_reservate->user_profile_id)
+                          <td> {{$user->telephone_number}}</td>  
+                        @endif
+                        @endforeach
+                  
+                          @foreach ($camp as $cm)
+                            @if ($all_camp_reservate->camp_id == $ev->id)
+                              <td>{{$cm->camp_name }}, {{$cm->camp_organizer}}, {{$cm->camp_address}}, {{$cm->camp_arrival_date}}, {{$cm->camp_leave_date}}</td>  
+                            @endif
+
+                        @endforeach
+                    </tr>
+                    @endforeach
+                    @endisset
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

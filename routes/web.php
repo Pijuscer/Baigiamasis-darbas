@@ -2,6 +2,7 @@
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Http\Controllers\CampController;
+use App\Http\Controllers\CampRezervationController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventRezervationController;
@@ -31,6 +32,8 @@ Route::get('/add_user_profile', [UserProfileController::class, 'viewForm']);
 Route::post('/add_user_profile', [UserProfileController::class, 'store']);
 Route::get('/all_user_profile', [UserProfileController::class, 'index']);
 Route::get('/my_user_profile', [UserProfileController::class, 'index2']);
+Route::get('/edit_user_profile/edit/{id}', [UserProfileController::class, 'editForm']);
+Route::post('/edit_user_profile/edit/{id}', [UserProfileController::class, 'edit'])->name('my_user_profile.update');
 
 Route::post('/user_profile_verified/{id}', [UserProfileController::class, 'verify_user'])->name('verify_profile');
 
@@ -50,3 +53,14 @@ Route::get('/all_event_reservation', [EventRezervationController::class, 'index'
 
 Route::get('/add_camp', [CampController::class, 'viewForm']);
 Route::post('/add_camp', [CampController::class, 'store']);
+Route::get('/all_camps', [CampController::class, 'index']);
+Route::get('/all_camps/edit/{id}', [CampController::class, 'editForm']);
+Route::post('/all_camps/edit/{id}', [CampController::class, 'edit'])->name('camp.update');
+Route::get('/all_camps/remove/ask/{id}', [CampController::class, 'removeForm']);
+Route::get('/all_camps/remove/{id}', [CampController::class, 'remove']);
+
+Route::get('/camps', [CampController::class, 'campsAll']);
+
+Route::get('/camps/{id}', [CampController::class, 'show'])->name('camps.show');
+Route::post('/camps/{id}', [CampRezervationController::class, 'store'])->name('camps.rezervation');
+Route::get('/all_camp_reservation', [CampRezervationController::class, 'index'])->name("all_camp_reservation");

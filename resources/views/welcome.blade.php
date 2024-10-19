@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Jaunimo laisvalaikio centras Kaune</title>
+        <title>Jaunimo laisvalaikio centras</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
         <header>
             <nav class="colorNavbar navbar sticky-top navbar-expand-lg ">
                 <div class="container-fluid">
-                    <a href="{{ url('') }}" class="navbar-brand font-italic">JLCK</a>
+                    <a href="{{ url('') }}" class="navbar-brand font-italic">JLC</a>
                     <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -46,7 +46,7 @@
             <div class="container mt-4">
                 <div class="d-flex justify-content-center">
                     <div class="col-md-12 transbox">
-                        <h1 class="welcome_title text-left p-6" >Jaunimo laisvalaikio centras Kaune</h1>
+                        <h1 class="welcome_title text-left p-6" >Jaunimo laisvalaikio centras</h1>
                         <p class="welcome_footer text-left p-2">Mūsų jaunoji karta, tai mūsų ateitis</p>
                         <a href="#contact" class="button_about">Plačiau apie mus</a>
                     </div>

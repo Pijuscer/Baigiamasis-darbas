@@ -46,26 +46,34 @@
           <div class="d-flex justify-content-center">
             <div class="col-md-10">
               <a href="{{ url('/all_users') }}" class="btn btn-success btn-lg atgal">Atgal</a>
-              <h1 class="text-center p-4 about_pavadinimas">Varototojo rolių redagavimas</h1>
-              <form action="" class="row g-3 transboxuserroleedit" method="POST">
+              <h1 class="text-center p-4 about_pavadinimas">Vartotojo profilio redagavimas</h1>
+              <form action="{{ route('my_user_profile.update', $users_profiles->id) }}" class="row g-3 transboxeventadd" method="POST" enctype="multipart/form-data" >
                 @csrf
                 <div class="row">
-                  <div class="col edit_cares_style">
-                    <label for="when" class="form-label add_label_text">Vardas</label>
-                    <input value="{{ $users->name }}" type="text" class="form-control editUserRoleInput" placeholder="Nurodytas vardas" aria-label="name" id="name" name="name">
+                    <div class="col-md-4">
+                        <label for="name" class="form-label add_label_text">Vartotojo vardas</label>
+                        <input value="{{ $users_profiles->name }}" type="text" class="form-control editEventInput" id="name" name="name" aria-label="name" placeholder="Redaguoti vartotojo profilio vardą">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="surname" class="form-label add_label_text">Vartotojo pavardė</label>
+                        <input value="{{ $users_profiles->surname }}" type="text" class="form-control editEventInput" id="surname" name="surname" aria-label="surname" placeholder="Redaguoti vartotojo profilio pavardę">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="telephone_number" class="form-label add_label_text">Telefono numeris</label>
+                        <input value="{{ $users_profiles->telephone_number }}" type="text" class="form-control editEventInput" id="telephone_number" name="telephone_number" aria-label="telephone_number" placeholder="Redaguoti vartotojo telefono numerį">
+                    </div>
+                    <div class="col-md-5">
+                        <label for="address" class="form-label add_label_text">Adresas</label>
+                        <input value="{{ $users_profiles->address }}" type="text" class="form-control editEventInput" id="address" name="address" aria-label="address" placeholder="Redaguoti savo namų adresą">
+                    </div>
+                    <div class="col-md-7">
+                        <label for="additional_information" class="form-label add_label_text">Papildoma svarbi informacija apie save</label>
+                        <input value="{{ $users_profiles->additional_information }}" type="text" class="form-control editEventInput" id="additional_information" name="additional_information" aria-label="additional_information" placeholder="Redaguoti papildomą indormaciją apie save">
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end" style=" margin-top: 60px; margin-bottom:40px;">
+                        <button type="submit" class="btn btn-success btn-lg">Redaguoti</button>
+                    </div>
                   </div>
-                  <div class="col edit_cares_style">
-                    <label for="when" class="form-label add_label_text">Email</label>
-                    <input value="{{ $users->email }}" type="text" class="form-control editUserRoleInput" placeholder="Nurodytas email" aria-label="email" id="email" name="email">
-                  </div>
-                  <div class="col edit_cares_style">
-                    <label for="when" class="form-label add_label_text">Role</label>
-                    <input value="{{ $users->roles }}" type="text" class="form-control editUserRoleInput" placeholder="Nurodytas role" aria-label="roles" id="roles" name="roles">
-                  </div>
-                  <div class="d-grid gap-2 d-md-flex justify-content-md-end button_edit">
-                    <button type="submit" class="btn btn-success btn-lg">Redaguoti</button>
-                  </div>
-                </div>
               </form>
             </div>
           </div>

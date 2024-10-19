@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Jaunimo laisvalaikio centras Kaune</title>
+        <title>Jaunimo laisvalaikio centras</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
     <header>
             <nav class="colorNavbar navbar sticky-top navbar-expand-lg ">
                 <div class="container-fluid">
-                    <a href="{{ url('') }}" class="navbar-brand font-italic">JLCK</a>
+                    <a href="{{ url('') }}" class="navbar-brand font-italic">JLC</a>
                     <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -27,9 +27,11 @@
                         <a href="{{ url('/about') }}" class="link nav-link">Apie</a>
                         <a href="{{ url('/all_users') }}" class="link nav-link">Rolės</a>
                         <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                          @if(Auth::user() != null)
+                          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ Auth::user()->name }}
-                        </button>
+                          </button>
+                          @endif
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                           <form method="POST" action="{{ route('logout') }}" x-data>
                             @csrf
@@ -42,31 +44,33 @@
             </nav>
         </header>
       <main>
-        <div class="container mt-4">
+      <div class="container mt-4">
+      <a href="{{ url('/my_user_profile') }}" class="btn btn-success btn-lg back_button">Atgal</a>
           <div class="d-flex justify-content-center">
             <div class="col-md-10">
-              <a href="{{ url('/all_users') }}" class="btn btn-success btn-lg atgal">Atgal</a>
-              <h1 class="text-center p-4 about_pavadinimas">Varototojo rolių redagavimas</h1>
-              <form action="" class="row g-3 transboxuserroleedit" method="POST">
-                @csrf
-                <div class="row">
-                  <div class="col edit_cares_style">
-                    <label for="when" class="form-label add_label_text">Vardas</label>
-                    <input value="{{ $users->name }}" type="text" class="form-control editUserRoleInput" placeholder="Nurodytas vardas" aria-label="name" id="name" name="name">
-                  </div>
-                  <div class="col edit_cares_style">
-                    <label for="when" class="form-label add_label_text">Email</label>
-                    <input value="{{ $users->email }}" type="text" class="form-control editUserRoleInput" placeholder="Nurodytas email" aria-label="email" id="email" name="email">
-                  </div>
-                  <div class="col edit_cares_style">
-                    <label for="when" class="form-label add_label_text">Role</label>
-                    <input value="{{ $users->roles }}" type="text" class="form-control editUserRoleInput" placeholder="Nurodytas role" aria-label="roles" id="roles" name="roles">
-                  </div>
-                  <div class="d-grid gap-2 d-md-flex justify-content-md-end button_edit">
-                    <button type="submit" class="btn btn-success btn-lg">Redaguoti</button>
-                  </div>
+              <h1 class="about_pavadinimas text-center p-4">Stovyklos</h1>
+              <div class="row ">
+                    <!-- Kiekvienai picai sukuriama forma kurios iš kontrolerio -->
+                    @foreach ($camps as $camp)
+                    <form action="{{ route('camps.show', $camp->id) }}" method="GET" class="col-sm mx-auto d-flex justify-content-center form_style">
+                        @csrf
+                            <div class="card card_style  " style="width: 20rem;">
+                                <img src="{{ asset('storage/'.$camp->camp_foto) }}" class="card-img-top pizzas_dashboard" alt="..." name="pizza_foto">
+                                <div class="card-body">
+                                    <h5 class="card-title dashboard_card_title">{{$camp->camp_name}}</h5>
+                                    <h5 class="card-title dashboard_card_title2">Renginio data</h5>
+                                    <p class="card-text dashboard_card_text">Atvykimo - {{$camp->camp_arrival_date}} Išvykimo - {{$camp->camp_leave_date}}</p>
+                                    <h5 class="card-title dashboard_card_title2">Renginio adresas</h5>
+                                    <p class="card-text dashboard_card_text">{{$camp->camp_address}}</p>
+                                </div>
+                                
+                                @if (Auth::check() && (Auth::user()->roles == "Administratorius" || (isset($userProfile) && $userProfile->verified == true)))
+                                  <button type="submit" class="btn btn-success btn-lg btn_more">Plačiau</button>
+                                @endif
+                            </div>
+                    </form>
+                    @endforeach
                 </div>
-              </form>
             </div>
           </div>
         </div>
